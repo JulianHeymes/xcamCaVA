@@ -16,19 +16,32 @@ class Camera:
         self.error, self.serial = self.discover()
         if self.error != 0:
             print translate_error(self.error)
+            
         self.error = self.initialize()
         if self.error !=0:
             print translate_error(self.error)
+        
+        self.start_production_image(0)
+        time.sleep(0.5)
+        self.set_timeout_ms(10000)
+        time.sleep(0.1)
+        self.send_pulse(0, 50, 50)
+        time.sleep(0.5)
+        self.initialise_spi_bus()
+        time.sleep(0.2)
+        self.frame_grab_setup_sn(552, 528, 0, 0, 552, 528, 1)[1]
+        self.set_CCD_on()
+
+    def setup(self):
         self.start_production_image(0)
         time.sleep(0.1)
         self.send_pulse(0, 50, 50)
         time.sleep(0.5)
         self.initialise_spi_bus()
         time.sleep(0.1)
-        self.frame_grab_setup_sn(552, 528, 0, 0, 552, 528, 1)[1]
+
         
-        
-    def translate_error(selfec):
+    def translate_error(self, ec):
         return errorlist[ec]
     
 
@@ -94,7 +107,7 @@ class Camera:
         err = hw_ver(srl, bffr)
         return (err,bffr.value)
 
-    def set_CDS_gain(self, gain):
+    def set_cds_gain(self, gain):
         srl = ctypes.c_int(self.serial)
         gain = ctypes.c_short(gain)
         xcm_cds_off = ctypes.WINFUNCTYPE(ctypes.c_int,
@@ -104,7 +117,7 @@ class Camera:
         cds_o = xcm_cds_off(("xcm_clm_cds_gain", self.lib), params)
         return cds_o(srl, gain)
 
-    def set_CDS_offset(self, offset):
+    def set_cds_offset(self, offset):
         srl = ctypes.c_int(self.serial)
         offset = ctypes.c_short(offset)
         xcm_cds_off = ctypes.WINFUNCTYPE(ctypes.c_int,
