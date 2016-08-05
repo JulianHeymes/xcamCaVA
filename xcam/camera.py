@@ -8,12 +8,6 @@ errorlist = ["No Error", "Interface Serial Number Not found.", "Interface not in
              "Transaction timed out.", "File not found", "Error in argument value", "Memory allocation failure",
              "Number of nodes not supported", "CDS Type is Unknown.", "Null buffer argument passed",
              "Comms protocol returned NAK"]
-
-
-class CameraSettings:
-    def __init__(self):
-        self.voltages = [0,0,0,0]
-        self.parameters = [0,0,0,0]
         
 class Camera:
     def __init__(self):
