@@ -48,6 +48,9 @@ class CameraInterface:
         #set a short integration time to reduce lag
         self.set_parameter('integrationtime', 1)
         self.get_image()
+        time.sleep(0.2)
+        self.get_image()
+        time.sleep(0.2)
         #reset the integration time to user specified level
         self.set_parameter('integrationtime', self.settings.integrationtime)
                 
