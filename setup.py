@@ -7,10 +7,9 @@ setup(name = 'xcam',
       author_email='jonathan.keelan@open.ac.uk',
       license='MIT',
       packages=['xcam'],
-      install_requires=[
-          'ctypes',
-          'numpy',
-          'matplotlib'
-      ],
+      # install_requires=[
+      #     'ctypes',
+      #     'numpy',
+      # ],
       zip_safe=False)
       

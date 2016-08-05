@@ -11,7 +11,6 @@ errorlist = ["No Error", "Interface Serial Number Not found.", "Interface not in
         
 class Camera:
     def __init__(self):
-        self.settings = CameraSettings()
         self.lib = ctypes.WinDLL('xcmclm.dll') #doesn't work on linux, duh
         #discover the camera system
         self.error, self.serial = self.discover()
@@ -22,11 +21,11 @@ class Camera:
             print translate_error(self.error)
         self.start_production_image(0)
         time.sleep(0.1)
-        print self.send_pulse(0, 50, 50)
+        self.send_pulse(0, 50, 50)
         time.sleep(0.5)
-        print self.initialise_spi_bus()
+        self.initialise_spi_bus()
         time.sleep(0.1)
-        print self.frame_grab_setup_sn(552, 528, 0, 0, 552, 528, 1)[1]
+        self.frame_grab_setup_sn(552, 528, 0, 0, 552, 528, 1)[1]
         
         
     def translate_error(selfec):
@@ -431,9 +430,6 @@ class Camera:
         sgs_c = sgs(("xcm_clm_set_grab_speed", self.lib), params)
         return sgs_c(self.serial, speed)
 
-
-camera = Camera()
-print camera.serial
 
 
 
