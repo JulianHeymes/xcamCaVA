@@ -20,25 +20,28 @@ class Camera:
         self.error = self.initialize()
         if self.error !=0:
             print translate_error(self.error)
-        
-        self.start_production_image(0)
-        time.sleep(0.5)
-        self.set_timeout_ms(10000)
-        time.sleep(0.1)
-        self.send_pulse(0, 50, 50)
-        time.sleep(0.5)
-        self.initialise_spi_bus()
-        time.sleep(0.2)
-        self.frame_grab_setup_sn(552, 528, 0, 0, 552, 528, 1)[1]
-        self.set_CCD_on()
 
-    def setup(self):
-        self.start_production_image(0)
-        time.sleep(0.1)
-        self.send_pulse(0, 50, 50)
+    def __call__(self):
+        return self
+
+    def setup(self, seqfile):
+        self.error, self.serial = self.discover()
+        if self.error != 0:
+            print translate_error(self.error)
+            
+        self.error = self.initialize()
+        if self.error !=0:
+            print translate_error(self.error)
+        
+        print self.start_production_image(0)
         time.sleep(0.5)
-        self.initialise_spi_bus()
+        print self.set_timeout_ms(10000)
         time.sleep(0.1)
+        print self.send_pulse(0, 50, 50)
+        print self.load_sequencer(seqfile)
+        time.sleep(1)
+        print self.initialise_spi_bus()
+
 
         
     def translate_error(self, ec):
@@ -159,7 +162,6 @@ class Camera:
         return (err, message)
 
     def set_voltage(self, index, value):
-        srl = ctypes.c_int(self.serial)
         index = ctypes.c_short(index)
         value = ctypes.c_void_p(value)
         sv = ctypes.WINFUNCTYPE(ctypes.c_int,
@@ -168,7 +170,7 @@ class Camera:
                                 ctypes.c_void_p)
         params = (1, "srl", 0), (1, "vindex", 0), (1, "value", 0)
         set_v = sv(("xcm_clm_set_voltage", self.lib), params)
-        return set_v(srl, index, value)
+        return set_v(self.serial, index, value)
 
     def get_voltage(self, index):
         srl = ctypes.c_int(self.serial)
@@ -208,7 +210,6 @@ class Camera:
         return value.value
 
     def set_single_param(self, index, value):
-        srl = ctypes.c_int(self.serial)
         index = ctypes.c_short(index)
         value = ctypes.c_short(value)
         sst = ctypes.WINFUNCTYPE(ctypes.c_int,
@@ -217,7 +218,7 @@ class Camera:
                                  ctypes.c_short)
         params = (1, "srl", 0), (1, "index", 0), (1, "value", 0)
         sst_c = sst(("xcm_clm_set_param", self.lib), params)
-        return sst_c(srl, index, value)
+        return sst_c(self.serial, index, value)
 
     def get_single_param(self, index):
         srl = ctypes.c_int(self.serial)

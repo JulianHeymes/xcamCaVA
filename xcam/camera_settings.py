@@ -54,9 +54,9 @@ class CameraSettings:
 
     def convert_frametype(self):
         if self.frametype == 'FT':
-            return 0
-        elif self.frametype == 'FF':
             return 1
+        elif self.frametype == 'FF':
+            return 0
         
     def convert_time(self):
         if self.timeunits == 'ms':
