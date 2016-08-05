@@ -33,14 +33,14 @@ class Camera:
         if self.error !=0:
             print translate_error(self.error)
         
-        print self.start_production_image(0)
+        self.start_production_image(0)
         time.sleep(0.5)
-        print self.set_timeout_ms(10000)
+        self.set_timeout_ms(10000)
         time.sleep(0.1)
-        print self.send_pulse(0, 50, 50)
-        print self.load_sequencer(seqfile)
+        self.send_pulse(0, 50, 50)
+        self.load_sequencer(seqfile)
         time.sleep(1)
-        print self.initialise_spi_bus()
+        self.initialise_spi_bus()
 
 
         

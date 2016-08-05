@@ -45,13 +45,14 @@ class CameraInterface:
 
     def clear(self):
         self.camera.set_CCD_on()
+        #set a short integration time to reduce lag
+        self.set_parameter('integrationtime', 1)
         self.get_image()
-        time.sleep(1)
-        self.get_image()
-        time.sleep(1)
+        #reset the integration time to user specified level
+        self.set_parameter('integrationtime', self.settings.integrationtime)
                 
     def setup_single_node(self):
-        print self.camera.frame_grab_setup_sn(self.settings.columns,
+        self.camera.frame_grab_setup_sn(self.settings.columns,
                                         self.settings.rows,
                                         0,
                                         0,
@@ -66,11 +67,9 @@ class CameraInterface:
         self.setup_camera()
         for key in sets:
             if type(sets[key]) is list:
-                print key, sets[key]
                 self.set_param_list(key, sets[key])
         for key in sets:
             if type(sets[key]) is not list:
-                print key, sets[key]
                 self.set_single_param(key, sets[key])
 
         #cds
