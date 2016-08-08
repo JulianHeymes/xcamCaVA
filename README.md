@@ -8,7 +8,7 @@ The Camera class provides access to the xcam dll, and can be used without the ot
 ## Installation
 Download the package. Navigate to the top level directory containing setup.py. 
 Execute: python setup.py install
-Note: the xcam dll and a camera system + ccd are required to use this module.
+Note: the xcam dl, sequencer file and a camera system + ccd are required to use this module.
 ## Example Program
 The following program initialises the camera system, grabs a single image and display it, before shutting down the CCD and exiting.
 ```python
