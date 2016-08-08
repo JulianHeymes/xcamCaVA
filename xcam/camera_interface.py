@@ -102,3 +102,5 @@ class CameraInterface:
     def set_parameter(self, key, value):
         return self.camera.set_single_param(cs.paramslist[key], int(value))
     
+    def shutdown(self):
+        self.camera.set_CCD_off()
