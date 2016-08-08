@@ -12,8 +12,8 @@ Note: the xcam dll and a camera system + ccd are required to use this module.
 ## Example Program
 The following program initialises the camera system, grabs a single image and display it, before shutting down the CCD and exiting.
 ```python
-import camera_interface as cmi
-import camera_settings as cset
+import xcam.camera_interface as cmi
+import xcam.camera_settings as cset
 import numpy as np
 import matplotlib.pyplot as plt
 import time
