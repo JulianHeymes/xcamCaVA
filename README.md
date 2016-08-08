@@ -44,6 +44,6 @@ img = inter.process_buffer(img) #process the raw image data
 plt.imshow(img, interpolation='None') 
 plt.show()
 
-#
+#Shutdown the CCD
 inter.shutdown()
 ```
