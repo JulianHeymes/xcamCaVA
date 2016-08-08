@@ -18,7 +18,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-#applying camera settings
+#creating camera settings
 settings = cset.CameraSettings()
 settings.rows = 1056
 settings.sequencerfile = 'CCD97-14Bit.DEX'
@@ -35,7 +35,7 @@ settings.set_voltage('vss', 96)
 settings.set_voltage('emv', 0)
 settings.set_param('parallelbinning', 1)
 
-inter = cmi.CameraInterface() #initialise the camera system
+inter = cmi.CameraInterface() #initialise the camera system interface
 inter.update_settings(settings) #apply the user settings
 err, img = inter.get_image() # grab an image from the ccd
 img = inter.process_buffer(img) #process the raw image data
