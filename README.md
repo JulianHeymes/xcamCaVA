@@ -37,7 +37,7 @@ settings.set_param('parallelbinning', 1)
 
 inter = cmi.CameraInterface() #initialise the camera system
 inter.update_settings(settings) #apply the user settings
-err, img = inter.get_image() # grab and image from the ccd
+err, img = inter.get_image() # grab an image from the ccd
 img = inter.process_buffer(img) #process the raw image data
 
 #Display
